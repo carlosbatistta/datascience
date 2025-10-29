@@ -331,5 +331,34 @@ services:
       airflow-init:
         condition: service_completed_successfully
 
+  postgres_source:
+    image: postgres:16
+    container_name: postgres_source
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: salesdb
+    ports:
+      - "5433:5432"  # diferente da porta do postgres interno do Airflow
+    volumes:
+      - ./data/source:/var/lib/postgresql/data
+    networks:
+      - airflow_default
+
+  postgres_dw:
+    image: postgres:16
+    container_name: postgres_dw
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: datamart
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./data/dw:/var/lib/postgresql/data
+    networks:
+      - airflow_default
+
+
 volumes:
   postgres-db-volume:
