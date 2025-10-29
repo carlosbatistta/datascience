@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "airflow": "^0.0.4",
-    "pandas": "^0.0.3"
-  }
-}
